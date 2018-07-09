@@ -10,20 +10,23 @@ summary:
 
 ## Defining a HasMany Relation
 
-The first relation type we have available is the `hasMany` relation which
-operates by constraining the target repository by the foreign key property on
-its associated model. Model relations in LoopBack 4 are defined by having a
-decorator on a designated relational property. The definition of the `hasMany`
-relation is inferred by using the `hasMany` decorator. The decorator takes in
-the target model class constructor and optionally a custom foreign key to store
-the relation metadata. The decorator logic also designates the relation type and
-tries to infer the foreign key on the target model (or `keyTo` in the relation
-metadata) default value (source model name appended with `id` in camel case,
-also used in LoopBack 3). It also calls `property.array()` to ensure that the
-type of the property is inferred properly as an array of the target model
-instances. The decorated property name is used as the relation name and stored
-as part of the source model definition's relation metadata. The following
-example shows how to define a `hasMany` relation on a source model `Customer`.
+Model relations in LoopBack 4 are defined by having a decorator on a designated
+relational property. This section describes how to define a `hasMany` relation
+at the model level using the `hasMany` decorator. The relation constrains the
+target repository by the foreign key property on its associated model.
+
+The definition of the `hasMany` relation is inferred by using the `hasMany`
+decorator. The decorator takes in the target model class constructor and
+optionally a custom foreign key to store the relation metadata. The decorator
+logic also designates the relation type and tries to infer the foreign key on
+the target model (or `keyTo` in the relation metadata) default value (source
+model name appended with `id` in camel case, also used in LoopBack 3). It also
+calls `property.array()` to ensure that the type of the property is inferred
+properly as an array of the target model instances.
+
+The decorated property name is used as the relation name and stored as part of
+the source model definition's relation metadata. The following example shows how
+to define a `hasMany` relation on a source model `Customer`.
 
 {% include code-caption.html content="/src/models/customer.model.ts" %}
 
@@ -67,9 +70,10 @@ for the above example is as follows:
 
 ## Configuring a HasMany relation
 
-Once a `HasMany` relation is defined on the source model, then there are a
-couple of steps involved to configure it and use it. On the source repository,
-the following are required:
+The configuration and resolution of a `HasMany` relation takes place at the
+repository level. Once `HasMany` relation is defined on the source model, then
+there are a couple of steps involved to configure it and use it. On the source
+repository, the following are required:
 
 - Use [Dependency Injection](Dependency-injection.md) to inject an instance of
   the target repository in the constructor of your source repository class.
@@ -123,9 +127,11 @@ factory `orders` for instances of `customerRepository`:
 
 ## Using HasMany constrained repository in a controller
 
-Once the hasMany relation has been defined and configured, controller methods
-can call the underlying constrained repository CRUD APIs and expose them as
-routes once decorated with
+The same pattern used for ordinary repositories to expose their CRUD APIs in
+controller methods is employed for `HasMany` repositories. Once the hasMany
+relation has been defined and configured, controller methods can call the
+underlying constrained repository CRUD APIs and expose them as routes once
+decorated with
 [Route decorators](Routes.md#using-route-decorators-with-controller-methods). It
 will require the value of the foreign key and, depending on the request method,
 a partial value for the target model instance as demonstrated below.
