@@ -39,7 +39,7 @@ export class <%= className %>Controller {
     @param.query.string('where') where: Where,
     @requestBody() obj: <%= modelName %>
   ): Promise<number> {
-    return await this.<%= repositoryNameCamel %>.updateAll(where, obj);
+    return await this.<%= repositoryNameCamel %>.updateAll(obj, where);
   }
 
   @del('<%= httpPathName %>')
