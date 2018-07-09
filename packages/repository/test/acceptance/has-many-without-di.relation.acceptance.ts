@@ -132,7 +132,10 @@ describe('HasMany relation', () => {
     Customer,
     typeof Customer.prototype.id
   > {
-    public orders: HasManyRepositoryFactory<Order, typeof Order.prototype.id>;
+    public orders: HasManyRepositoryFactory<
+      Order,
+      typeof Customer.prototype.id
+    >;
 
     constructor(
       protected db: juggler.DataSource,
