@@ -8,7 +8,6 @@
 const ArtifactGenerator = require('../../lib/artifact-generator');
 const debug = require('../../lib/debug')('model-generator');
 const utils = require('../../lib/utils');
-const updateIndex = require('../../lib/update-index');
 const chalk = require('chalk');
 const path = require('path');
 const _ = require('lodash');
@@ -63,29 +62,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
   }
 
   promptArtifactName() {
-    return super.promptArtifactName();
-  }
-
-  async promptBase() {
-    this.artifactInfo.className = utils.toClassName(this.artifactInfo.name);
-    const baseOptions = ['Entity'];
-    const prompts = [
-      {
-        name: 'base',
-        message: `Select the base class for ${chalk.yellow(
-          this.artifactInfo.className,
-        )}:`,
-        type: 'list',
-        default: baseOptions[0],
-        choices: baseOptions,
-        when: baseOptions.length > 1,
-      },
-    ];
-
-    const answers = await this.prompt(prompts);
-    if (!answers.base) answers.base = baseOptions[0];
-    Object.assign(this.artifactInfo, answers);
-
+    await super.promptArtifactName();
     this.log(
       `Let's add a property to ${chalk.yellow(this.artifactInfo.className)}`,
     );

@@ -363,7 +363,7 @@ function validateValue(name, unallowedCharacters) {
     unallowedCharacters = /[\/@\s\+%:\.]/;
   }
   if (name.match(unallowedCharacters)) {
-    return `Name cannot contain special characters ${unallowedCharacters} ${name}`;
+    return `Name cannot contain special characters ${unallowedCharacters}: ${name}`;
   }
   if (name !== encodeURIComponent(name)) {
     return `Name cannot contain special characters escaped by encodeURIComponent: ${name}`;
