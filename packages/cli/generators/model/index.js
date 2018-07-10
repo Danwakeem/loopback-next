@@ -61,7 +61,7 @@ module.exports = class ModelGenerator extends ArtifactGenerator {
     return super.checkLoopBackProject();
   }
 
-  promptArtifactName() {
+  async promptArtifactName() {
     await super.promptArtifactName();
     this.log(
       `Let's add a property to ${chalk.yellow(this.artifactInfo.className)}`,
